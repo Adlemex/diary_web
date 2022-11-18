@@ -12,25 +12,30 @@ import {useState} from "react";
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import dayjs from "dayjs";
-import "./api"
+import {getDiaryDay} from "./api"
 import {AdapterMoment} from "@mui/x-date-pickers/AdapterMoment";
 import moment from "@date-io/moment";
 import {ruRU} from "@mui/material/locale";
 import { styled } from '@mui/material/styles';
 import {Locale} from "moment/moment";
+import { getDay } from 'date-fns/esm';
+import { PlayLessonOutlined } from '@mui/icons-material';
 
 
 
 function App() {
     const theme = createTheme()
     const [date, setDate] = useState(dayjs.date);
-    const [day, setday] = useState(dayjs.date);
+    const [day, setDay] = useState(null);
     const [markTab, setMarkTab] = useState(0);
     function a11yProps(index) {
         return {
             id: `simple-tab-${index}`,
             'aria-controls': `simple-tabpanel-${index}`,
         };
+    }
+    if(!day){
+        getDiaryDay(setDay, "DDFED2B991D7AEE62D9A8136AD98B737")
     }
 
     function TabPanel(props) {
@@ -163,24 +168,10 @@ function App() {
                       />
                   </LocalizationProvider>
                   <Stack spacing={2} style={{margin: "5px"}}>
-                    <Lesson num={1} teacher={"Test Test Test"}
-                            homework={"Домашние задания Домашние задания Домашние задания"}
-                            marks={[5,5]} time={"11:23"} name={"Русский язык"} />
-                    <Lesson num={2} teacher={"Test Test Test"}
-                            homework={"Домашние задания Домашние задания Домашние задания"}
-                            marks={[5,5]} time={"11:23"} name={"Русский язык"} />
-                    <Lesson num={3} teacher={"Test Test Test"}
-                            homework={"Домашние задания Домашние задания Домашние задания"}
-                            marks={[5,5]} time={"11:23"} name={"Алгебра"} />
-                    <Lesson num={4} teacher={"Test Test Test"}
-                            homework={"Домашние задания Домашние задания Домашние задания"}
-                            marks={[5,2]} time={"11:23"} name={"Геометрия"} />
-                    <Lesson num={5} teacher={"Test Test Test"}
-                            homework={"Домашние задания Домашние задания Домашние задания Домашние задания Домашние задания Домашние задания"}
-                            marks={[5,4]} time={"11:23"} name={"Английский язык"} />
-                    <Lesson num={6} teacher={"Test Test Test"}
-                            homework={"Домашние задания Домашние задания Домашние задания"}
-                            marks={[5,5]} time={"11:23"} name={"ОБЖ"} />
+                    {day != null && day.data.map((lesson) =>
+                    <Lesson key={lesson.LESSON_NUMBER} num={lesson.LESSON_NUMBER} teacher={lesson.TEACHER_NAME} 
+                    homework={lesson.HOMEWORK_PREVIOUS.HOMEWORK} marks={lesson.MARKS}
+                    time={lesson.LESSON_TIME_BEGIN} name={lesson.SUBJECT_NAME} />)}
                   </Stack>
               </Paper>
           </Box>
