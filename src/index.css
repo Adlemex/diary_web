@@ -7,10 +7,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 ::-webkit-scrollbar {
-  width: 0;
+  width: 10px;
+  height: 0px;
+  background-color: rgba(194, 194, 194, 0);
+  border-radius: 10px;
 }
+::-webkit-scrollbar-thumb {
+   background-color: rgb(77, 77, 77);
+   border-radius: 10px;
+ }
 .marks::-webkit-scrollbar {
-  width: 1px;
+  width: 10px;
   height: 10px;
   background-color: rgba(194, 194, 194, 0.63);
   border-radius: 10px;
