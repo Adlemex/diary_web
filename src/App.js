@@ -181,7 +181,7 @@ function App() {
                   <Grid container columnGap={0} rowGap={4} style={{margin: "1vh"}}>
                       <Button onClick={() => {
                           setDate(cur_date.addDays(-1))
-                          getDiaryDay(setDay, "DDFED2B991D7AEE62D9A8136AD98B737", format(cur_date,'dd.MM.yyyy'))
+                          getDiaryDay(setDay, user.guid, format(cur_date,'dd.MM.yyyy'))
                       }}>{"<--"}</Button>
                         <LocalizationProvider dateAdapter={AdapterMoment} >
                             <DesktopDatePicker
@@ -191,7 +191,7 @@ function App() {
                                 inputFormat="DD.MM"
                                 onChange={(date) => {
                                     setDate(new Date(date.toString()))
-                                    getDiaryDay(setDay, "DDFED2B991D7AEE62D9A8136AD98B737", format(cur_date,'dd.MM.yyyy'))
+                                    getDiaryDay(setDay, user.guid, format(cur_date,'dd.MM.yyyy'))
                                 }}
                                 renderInput={(params) => <TextField {...params} />}
                             />
@@ -199,7 +199,7 @@ function App() {
 
                       <Button onClick={() => {
                           setDate(cur_date.addDays(1))
-                          getDiaryDay(setDay, "DDFED2B991D7AEE62D9A8136AD98B737", format(cur_date,'dd.MM.yyyy'))
+                          getDiaryDay(setDay, user.guid, format(cur_date,'dd.MM.yyyy'))
                       }}>{"-->"}</Button>
                   </Grid>
                   <Stack spacing={2} style={{marginLeft: 5, marginRight: 5}}>
